@@ -60,8 +60,8 @@ export async function createInvoice(prevState: State, formData: FormData) {
 }
 
 export async function updateInvoice(
-  prevState: State,
   id: string,
+  prevState: State,
   formData: FormData
 ) {
   const validatedFields = UpdateInvoice.safeParse(Object.fromEntries(formData));
@@ -84,7 +84,9 @@ export async function updateInvoice(
    `;
   } catch (error) {
     console.error("Database Error:", error);
-    throw new Error("Failed to update invoice.");
+    return {
+      message: "Failed to update invoice.",
+    };
   }
 
   revalidatePath("/dashboard/invoices");
